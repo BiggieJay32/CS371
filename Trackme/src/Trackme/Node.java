@@ -1,6 +1,7 @@
 package Trackme;
 /**
  * Created by jkeys on 10/13/2016.
+ * Modified by jkeys on 10/26/2016.
  */
 public class Node {
     private int x, y; //x and y coordinates
@@ -21,6 +22,10 @@ public class Node {
         x = xNew;
         y = yNew;
         note = n;
+    }
+
+    public void print() {
+        System.out.println("Node: " + x + " " + y + " " + "\n" + note);
     }
 
 }

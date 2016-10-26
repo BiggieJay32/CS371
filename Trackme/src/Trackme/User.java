@@ -2,7 +2,7 @@ package Trackme;
 
 /**
  * Created by  jkeys on 10/13/2016.
- * Modified by jkeys on 10/13/2016.
+ * Modified by jkeys on 10/25/2016.
  */
 
 import java.util.*;
@@ -13,6 +13,7 @@ public class User {
     int numGraphs;
 
     public User(String n) {
+        graphList = new ArrayList<Graph>();
         userName = n;
         numGraphs = 0;
     }
@@ -40,6 +41,15 @@ public class User {
 
     public Graph getGraph(int i) {
 	return graphList.get(i);
+    }
+
+    public void print() {
+        System.out.println("User: ");
+        System.out.println(userName);
+        System.out.println("Number of graphs within the user: " + graphList.size());
+        for (Graph g : graphList) {
+            g.print();
+        }
     }
     
 }
