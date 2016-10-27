@@ -25,7 +25,9 @@ public class Node {
     }
 
     public void print() {
-        System.out.println("Node: " + x + " " + y + " " + "\n" + note);
+        System.out.println("Node note: " + note);
+        System.out.println("x value: " + String.valueOf(x));
+        System.out.println("y value: " + String.valueOf(y));
     }
 
 }
