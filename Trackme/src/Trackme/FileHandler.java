@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * Created  by jkeys on 10/12/16.
- * Modified by jkeys on 10/25/16.
+
  */
 
 public class FileHandler {
@@ -41,59 +41,64 @@ public class FileHandler {
         String yMin_s = r.readLine();
         String yMax_s = r.readLine();
 
-        System.err.println("Finished reading beginning graph info, graphName: " + graphName);
-
         int xMin = Integer.parseInt(xMin_s);
         int xMax = Integer.parseInt(xMax_s);
         int yMin = Integer.parseInt(yMin_s);
         int yMax = Integer.parseInt(yMax_s);
 
-        return new Graph(graphName, xLabel, yLabel, xMin, xMax, yMin, yMax);
+        return (new Graph(graphName, xLabel, yLabel, xMin, xMax, yMin, yMax));
 
     }
 
-    private void writeGraph(PrintWriter w, Graph g) throws Exception {
-        w.println(g.graphName());
-        w.println(g.xLabel());
-        w.println(String.valueOf(g.xMin()));
-        w.println(String.valueOf(g.xMax()));
-        w.println(g.yLabel());
-        w.println(String.valueOf(g.yMin()));
-        w.println(String.valueOf(g.yMax()));
-        w.println(String.valueOf(g.numNodes()));
+    private void writeGraph(PrintWriter w, Graph g) {
+        String graphName = g.graphName();
+        String xLabel = g.xLabel();
+        String xMin_s = String.valueOf(g.xMin());
+        String xMax_s = String.valueOf(g.xMax());
+        String yLabel = g.yLabel();
+        String yMin_s = String.valueOf(g.yMin());
+        String yMax_s = String.valueOf(g.yMax());
+        String numNodes_s = String.valueOf(g.numNodes());
+
+        w.println(graphName);
+        w.println(xLabel);
+        w.println(xMin_s);
+        w.println(xMax_s);
+        w.println(yLabel);
+        w.println(yMin_s);
+        w.println(yMax_s);
+        w.println(numNodes_s);
     }
 
     //reads the user file, and adds all nodes to each graph, and each graph to the user object
     private User readUserFile(String userFile) throws Exception {
-        String userName, numGraphs_s;
+        String userName;
+        String numGraphs_s, numNodes_s;
 
         BufferedReader r = new BufferedReader(new FileReader(userFile));
 
         userName = r.readLine();
         numGraphs_s = r.readLine();
+        int numGraphs = Integer.parseInt(numGraphs_s);
 
         User u = new User(userName);
 
-        int numGraphs = Integer.parseInt(numGraphs_s);
-
-        Graph g;
-
         for (int i = 0; i != numGraphs; i++) {
-            g = readGraph(r);                         //read the graph info
-            String numNodes_s = r.readLine();
-            int numNodes = Integer.parseInt(numNodes_s);
+            Graph g = readGraph(r);
+
+            numNodes_s = r.readLine();
+
+            int numNodes = Integer.parseInt(numNodes_s); //j many nodes per graph
 
             for (int j = 0; j != numNodes; j++) {
                 Node n = readNode(r);
-                g.addNode(n);                               //add the j'th node to the user's i'th graph
+                g.addNode(n); //add the j'th node to Graph g's node list
             }
 
-            u.addGraph(g);                                  //add the i'th graph to the User object
+            u.addGraph(g); //add the i'th graph to the User object
         }//end for
 
         //should be no more input here
-        r.close();
-
         return u;
     }
 
@@ -108,34 +113,24 @@ public class FileHandler {
         w.println(String.valueOf(numGraphs));
 
         for (int i = 0; i != u.numGraphs(); i++) {
-
             Graph g = u.getGraph(i);
-
             writeGraph(w, g);
 
             for (int j = 0; j != g.numNodes(); j++) {
                 Node n = g.getNode(j);
                 writeNode(w, n);
-
             }
         }
 
         w.close();
     }
 
-
     public static void main(String[] args) throws Exception {
         FileHandler f = new FileHandler();
 
-        String path = System.getProperty("user.dir") + System.getProperty("file.separator");
-        System.out.println(path + "user_file.txt");
-
-        System.out.println(new File(".").getAbsoluteFile());
-
-        User u = f.readUserFile(path + "user_file.txt");
+        User u = f.readUserFile("user_file.txt");
         u.print();
         f.writeUserFile(u, "user_file_out.txt");
-
     }
 
 }

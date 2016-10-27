@@ -13,7 +13,7 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Clark on 10/12/2016.
- * Modified by jkeys on 10/25/16.
+ * Modified by jkeys on 10/26/16.
  */
 /*Notes by Ian
 AreaChart
