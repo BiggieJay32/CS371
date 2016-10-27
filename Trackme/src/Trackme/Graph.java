@@ -13,7 +13,7 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Clark on 10/12/2016.
- * Modified by jkeys on 10/13/16.
+ * Modified by jkeys on 10/26/16.
  */
 /*Notes by Ian
 AreaChart
@@ -24,7 +24,6 @@ public final class Graph extends Application {
     String name;
     String xLabel, yLabel;
     int xMin, xMax, yMin, yMax;
-    int numNodes;
     
     public String graphName() { return name; }
     public String xLabel() { return xLabel; }
@@ -33,18 +32,12 @@ public final class Graph extends Application {
     public int xMax() { return xMax; }
     public int yMin() { return yMin; }
     public int yMax() { return yMax; }
-    public int numNodes() { return numNodes(); }    
+    public int numNodes() { return nodeList.size(); }
 
     public Node getNode(int i) {
       return nodeList.get(i);
     }
-    
-    public void incrementNumNodes() {
-      numNodes++;
-      return;
-    }
-   
-    
+
 
     public Graph(String n, String xLab, String yLab, int xMinimum, int xMaximum, int yMinimum, int yMaximum) {
         nodeList = new ArrayList<Node>();
@@ -67,6 +60,12 @@ public final class Graph extends Application {
 
     public void addNode(Node n) {
         nodeList.add(n);
+    }
+
+    public void print() {
+        for (Node n : nodeList) {
+            n.print();
+        }
     }
 
 
